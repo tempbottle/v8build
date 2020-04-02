@@ -9,3 +9,13 @@ else
   export VERSION=${npm_package_version}
   export V8_VERSION=${npm_package_config_V8}
 fi
+
+
+chmod +x archive.sh
+chmod +x build.sh
+chmod +x bump.py
+chmod +x env.sh
+chmod +x patch.sh
+chmod +x publish.py
+chmod +x setup.sh
+chmod +x start.sh

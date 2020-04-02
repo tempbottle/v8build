@@ -19,6 +19,8 @@ source $(dirname $0)/env.sh
 function installNDK() {
   pushd .
   cd "${V8_DIR}"
+  df -h
+  echo "installNDK..."
   wget -q https://dl.google.com/android/repository/android-ndk-${NDK_VERSION}-linux-x86_64.zip
   unzip -q android-ndk-${NDK_VERSION}-linux-x86_64.zip
   rm -f android-ndk-${NDK_VERSION}-linux-x86_64.zip

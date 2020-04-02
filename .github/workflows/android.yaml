@@ -4,22 +4,25 @@ on: [push]
 
 jobs:
   build:
-    runs-on: macOS-10.15
+    runs-on: ubuntu-18.04
     timeout-minutes: 240
 
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v1
       with:
-        python-version: '2.7'
+        python-version: '3.7'
 
     - name: Export settings from npm package
       run: |
         npm run export_npm_env
 
-    - name: Setup V8 build environment
+    #- name Install coreutils
+    #  run: |
+    #    brew install coreutils
+
+    - name: Setup V8 build environment & fetch code
       run: |
-        brew install coreutils
         scripts/setup.sh -r ${V8_VERSION} android
 
     - name: Patch V8
@@ -29,6 +32,9 @@ jobs:
     - name: Build V8
       run: |
         scripts/build.sh android
+
+    - name: Archive V8
+      run: |
         scripts/archive.sh android
 
     - uses: actions/upload-artifact@master

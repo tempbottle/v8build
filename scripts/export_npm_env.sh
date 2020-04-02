@@ -12,12 +12,13 @@ fi
 
 CWD=`pwd`
 echo $CWD
+ls $CWD/scripts/
 
-chmod +x archive.sh
-chmod +x build.sh
-chmod +x bump.py
-chmod +x env.sh
-chmod +x patch.sh
-chmod +x publish.py
-chmod +x setup.sh
-chmod +x start.sh
+chmod +x $CWD/scripts/archive.sh
+chmod +x $CWD/scripts/build.sh
+chmod +x $CWD/scripts/bump.py
+chmod +x $CWD/scripts/env.sh
+chmod +x $CWD/scripts/patch.sh
+chmod +x $CWD/scripts/publish.py
+chmod +x $CWD/scripts/setup.sh
+chmod +x $CWD/scripts/start.sh

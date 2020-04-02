@@ -1,0 +1,37 @@
+
+name: Android build
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v1
+      with:
+        python-version: '2.7'
+
+    - name: Export settings from npm package
+      run: |
+        npm run export_npm_env
+
+    - name: Setup V8 build environment
+      run: |
+        scripts/setup.sh -r ${V8_VERSION} android
+        sudo apt-get install -y libatomic1-i386-cross && sudo sh -c 'echo "/usr/i686-linux-gnu/lib" >> /etc/ld.so.conf.d/i386-linux-gnu.conf' && sudo ldconfig
+
+    - name: Patch V8
+      run: |
+        scripts/patch.sh android
+
+    - name: Build V8
+      run: |
+        scripts/build.sh android
+        scripts/archive.sh android
+
+    - uses: actions/upload-artifact@master
+      with:
+        name: dist
+        path: dist

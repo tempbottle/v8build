@@ -1,11 +1,10 @@
-
 name: Android build
 
 on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-16.04
+    runs-on: macOS-10.15
     timeout-minutes: 240
 
     steps:
@@ -14,23 +13,14 @@ jobs:
       with:
         python-version: '2.7'
 
-    - name: Setup environment
-      run: |
-        export DEBIAN_FRONTEND=noninteractive
-        export TZ=UTC
-        sudo ln -fs /usr/share/zoneinfo/UTC /etc/localtime
-        sudo apt-get update
-        sudo apt-get upgrade -y
-        sudo apt-get install -y apt-utils sudo lsb-core git python nodejs npm wget openjdk-8-jre openjdk-8-jdk
-
     - name: Export settings from npm package
       run: |
         npm run export_npm_env
 
     - name: Setup V8 build environment
       run: |
+        brew install coreutils
         scripts/setup.sh -r ${V8_VERSION} android
-        sudo apt-get install -y libatomic1-i386-cross && sudo sh -c 'echo "/usr/i686-linux-gnu/lib" >> /etc/ld.so.conf.d/i386-linux-gnu.conf' && sudo ldconfig
 
     - name: Patch V8
       run: |

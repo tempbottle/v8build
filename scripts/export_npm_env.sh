@@ -10,6 +10,8 @@ else
   export V8_VERSION=${npm_package_config_V8}
 fi
 
+CWD=`pwd`
+echo $CWD
 
 chmod +x archive.sh
 chmod +x build.sh
